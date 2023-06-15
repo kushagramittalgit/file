@@ -19,31 +19,22 @@ export class FileUploadComponent {
   
     if (this.selectedImage) {
       const reader = new FileReader();
+        
+      reader.readAsBinaryString(this.selectedImage);
   
-      reader.onloadend = () => {
-        const binaryString = reader.result as string;
+      reader.onloadend = function () {
+        const binaryString = this.result as string;
         const base64Image = btoa(binaryString);
   
         // Create a JSON object with the base64 image
-        const imageObject = { image: base64Image };
+        const imageObject = { image: base64Image 
+        };
   
         console.log('Image object:', imageObject);
   
-        // Send the imageObject to the server
-        this.http.post('http://your-api-url', imageObject)
-          .subscribe(
-            response => {
-              console.log('Image uploaded successfully!', response);
-              // Handle the response from the server
-            },
-            error => {
-              console.error('Error uploading image:', error);
-              // Handle any errors that occur during the upload
-            }
-          );
+
       };
-  
-      reader.readAsBinaryString(this.selectedImage);
+
     }
   }
   
