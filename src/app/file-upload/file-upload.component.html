@@ -4,13 +4,12 @@
   <image-cropper [ngStyle]="{width: '300px'}"
   [imageChangedEvent]="imageChangedEvent"
   [maintainAspectRatio]="true"
-  [aspectRatio]="4 / 3"
+  [aspectRatio]="2/2"
   format="png"
   (imageCropped)="imageCropped($event)"
   (imageLoaded)="imageLoaded()"
   (cropperReady)="cropperReady()"
   (loadImageFailed)="loadImageFailed()"
-      [roundCropper]="true"
   ></image-cropper>
 
   <img [src]="croppedImage" [ngStyle]="{width: '300px', borderRadius: '50%'}"/>

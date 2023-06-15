@@ -9,13 +9,14 @@ import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 export class FileUploadComponent {
 
   imageChangedEvent: any = "";
-  croppedImage: any = "";
+  croppedImage: any ;
 
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
   }
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
+    console.log(this.croppedImage);
   }
   imageLoaded() {
 
