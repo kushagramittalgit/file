@@ -1,5 +1,18 @@
-<form (submit)="uploadImage($event)">
-    <input type="file" (change)="onFileChange($event)" accept="image/*" />
-    <button type="submit">Upload</button>
-  </form>
+<!--The content below is only a placeholder and can be replaced.-->
+<div>
+    <input type="file" (change)="fileChangeEvent($event)" />
+  <image-cropper [ngStyle]="{width: '300px'}"
+  [imageChangedEvent]="imageChangedEvent"
+  [maintainAspectRatio]="true"
+  [aspectRatio]="4 / 3"
+  format="png"
+  (imageCropped)="imageCropped($event)"
+  (imageLoaded)="imageLoaded()"
+  (cropperReady)="cropperReady()"
+  (loadImageFailed)="loadImageFailed()"
+      [roundCropper]="true"
+  ></image-cropper>
+
+  <img [src]="croppedImage" [ngStyle]="{width: '300px', borderRadius: '50%'}"/>
+  </div>
   
