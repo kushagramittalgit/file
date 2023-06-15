@@ -1,5 +1,5 @@
-<form (ngSubmit)="submitForm()">
-    <input type="file" (change)="onFileSelected($event)" accept="image/*">
+<form (submit)="uploadImage($event)">
+    <input type="file" (change)="onFileChange($event)" accept="image/*" />
     <button type="submit">Upload</button>
   </form>
   

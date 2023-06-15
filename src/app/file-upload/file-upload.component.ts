@@ -7,32 +7,45 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./file-upload.component.scss']
 })
 export class FileUploadComponent {
-  selectedFile: File | null = null;
+  selectedImage!: File;
 
   constructor(private http: HttpClient) { }
 
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0] as File; }
-    submitForm() {
-      if (this.selectedFile) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          const imageBase64 = reader.result as string;
-          const imageData = { image: imageBase64 };
-          this.uploadImage(imageData);
-        };
-        reader.readAsDataURL(this.selectedFile);
-      }
+  onFileChange(event: any) {
+    this.selectedImage = event.target.files[0];
+  }
+  uploadImage(event: Event) {
+    event.preventDefault(); // Prevent form submission and page refresh
+  
+    if (this.selectedImage) {
+      const reader = new FileReader();
+  
+      reader.onloadend = () => {
+        const binaryString = reader.result as string;
+        const base64Image = btoa(binaryString);
+  
+        // Create a JSON object with the base64 image
+        const imageObject = { image: base64Image };
+  
+        console.log('Image object:', imageObject);
+  
+        // Send the imageObject to the server
+        this.http.post('http://your-api-url', imageObject)
+          .subscribe(
+            response => {
+              console.log('Image uploaded successfully!', response);
+              // Handle the response from the server
+            },
+            error => {
+              console.error('Error uploading image:', error);
+              // Handle any errors that occur during the upload
+            }
+          );
+      };
+  
+      reader.readAsBinaryString(this.selectedImage);
     }
-    uploadImage(imageData: any) {
-      this.http.post<any>('YOUR_UPLOAD_URL', imageData).subscribe(
-        response => {
-          console.log('Image uploaded successfully!', response);
-        },
-        error => {
-          console.error('Error uploading image:', error);
-        }
-      );
-    }
+  }
+  
 }
 
