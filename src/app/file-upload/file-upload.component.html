@@ -1,4 +1,4 @@
-<!--The content below is only a placeholder and can be replaced.-->
+
 <form (submit)="uploadImage($event)">
 <div>
     <input type="file" (change)="fileChangeEvent($event)" />
@@ -9,6 +9,8 @@
   [aspectRatio]="2 / 2"
   [maintainAspectRatio]="true"
   [resizeToWidth]="128"
+  [resizeToHeight]="128"
+  [imageQuality]="60"
   format="jpeg"
   (imageCropped)="imageCropped($event)"
   (imageLoaded)="imageLoaded()"
